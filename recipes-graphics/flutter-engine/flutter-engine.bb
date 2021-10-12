@@ -70,6 +70,6 @@ do_install() {
     install -d ${D}${libdir}
     install -m 0755 ${WORKDIR}/src/${ARTIFACT_DIR}/libflutter_engine.so ${D}${libdir}
 }
-
+INSANE_SKIP_${PN}_append = "already-stripped"
 FILES_${PN} = "${libdir}"
 FILES_${PN}-dev = "${includedir}"

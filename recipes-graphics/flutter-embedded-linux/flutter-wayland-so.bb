@@ -13,10 +13,12 @@ EXTRA_OECMAKE = "-DBUILD_ELINUX_SO=ON \
                  -DCMAKE_BUILD_TYPE=Release \
                  -DENABLE_ELINUX_EMBEDDER_LOG=ON \
                  -DFLUTTER_RELEASE=ON"
+SOLIBS = ".so"
+FILES_SOLIBSDEV = ""
 
 do_install() {
     install -d ${D}${libdir}
-    install -m 0755 ${WORKDIR}/build/libflutter_elinux_wayland.so ${D}${bindir}
+    install -m 0755 ${WORKDIR}/build/libflutter_elinux_wayland.so ${D}${libdir}/libflutter_elinux_wayland.so
 }
-
+INSANE_SKIP_${PN} = "dev-so ldflags"
 require tasks.inc

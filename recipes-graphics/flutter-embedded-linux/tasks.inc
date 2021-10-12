@@ -4,4 +4,4 @@ do_configure_prepend() {
 }
 do_configure_prepend[depends] += "flutter-engine:do_populate_sysroot"
 
-FILES_${PN} = "${bindir}"
+FILES_${PN} = "${bindir} ${libdir}"
