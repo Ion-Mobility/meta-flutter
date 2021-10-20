@@ -69,7 +69,24 @@ do_compile() {
 do_install() {
     install -d ${D}${libdir}
     install -m 0755 ${WORKDIR}/src/${ARTIFACT_DIR}/libflutter_engine.so ${D}${libdir}
+
+    # We need below packages for cross-compiler on host x86_64
+    install -d ${D}/${datadir}/flutter
+    install -d ${D}/${datadir}/flutter/sdk
+    install -d ${D}/${datadir}/flutter/sdk/clang_x64
+   
+    install -m 755 ${WORKDIR}/src/${ARTIFACT_DIR}/clang_x64/gen_snapshot ${D}/${datadir}/flutter/sdk/clang_x64/
+ 
+    cd ${D}/${datadir}/flutter
+    zip -r engine_sdk.zip sdk
+    rm -rf sdk
 }
+
+do_install[depends] += "zip-native:do_populate_sysroot"
+
+
 INSANE_SKIP_${PN}_append = "already-stripped"
-FILES_${PN} = "${libdir}"
+FILES_${PN} = "${libdir} \
+               ${datadir}/flutter \
+              "
 FILES_${PN}-dev = "${includedir}"
