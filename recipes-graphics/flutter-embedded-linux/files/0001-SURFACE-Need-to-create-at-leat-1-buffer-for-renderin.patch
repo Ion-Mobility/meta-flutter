@@ -1,0 +1,26 @@
+From f3cffc197fd183e6948344c79496eb04b913e79c Mon Sep 17 00:00:00 2001
+From: Calvin <calvin@ionmobility.asia>
+Date: Fri, 22 Oct 2021 11:27:49 +0000
+Subject: [SURFACE] Need to create at leat 1 buffer for rendering on iMX8QX
+
+Signed-off-by: Calvin <calvin@ionmobility.asia>
+---
+ .../shell/platform/linux_embedded/surface/elinux_egl_surface.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/flutter/shell/platform/linux_embedded/surface/elinux_egl_surface.cc b/src/flutter/shell/platform/linux_embedded/surface/elinux_egl_surface.cc
+index f25af19..1da72b8 100644
+--- a/src/flutter/shell/platform/linux_embedded/surface/elinux_egl_surface.cc
++++ b/src/flutter/shell/platform/linux_embedded/surface/elinux_egl_surface.cc
+@@ -34,7 +34,7 @@ bool ELinuxEGLSurface::MakeCurrent() const {
+ 
+ #if defined(DISPLAY_BACKEND_TYPE_WAYLAND)
+   // Non-blocking when swappipping buffers on Wayland.
+-  if (eglSwapInterval(display_, 0) != EGL_TRUE) {
++  if (eglSwapInterval(display_, 1) != EGL_TRUE) {
+     ELINUX_LOG(ERROR) << "Failed to eglSwapInterval(Free): "
+                       << get_egl_error_cause();
+   }
+-- 
+2.25.1
+
