@@ -8,9 +8,10 @@ DEPENDS += "wayland \
             wayland-protocols \
             wayland-native"
 
-SRC_URI += "file://0001-SURFACE-Need-to-create-at-leat-1-buffer-for-renderin.patch"
-
 EXTRA_OECMAKE = "-DUSER_PROJECT_PATH=examples/flutter-wayland-client"
+
+# Set the number of buffering before render for wayland backend
+TARGET_CFLAGS += "-DBUF_NUM_SWAP_INTERVAL=1"
 
 do_install() {
     install -d ${D}${bindir}
